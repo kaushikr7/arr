@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Define datasets and directories
-CFGPATH = fastdata/appdata/arr
+CFGPATH = "fastdata/appdata/arr"
 APP_DATASETS=("prowlarr" "radarr" "sonarr" "jellyseerr" "recyclarr" "bazarr" "tdarr" "jellyfin" "qbittorrent" "dozzle")
 TDARR_SUBDIRS=("server" "logs" "transcode_cache")
-MEDIAPATH = media/store
+MEDIAPATH = "media/store"
 MEDIA_SUBDIRECTORIES=("movies" "tv" "downloads")
 
 
