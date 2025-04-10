@@ -60,7 +60,7 @@ services:
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=4Y2x8ZtblodezemvseylnJ2uGmqdZFx133zeF+QJPW0=
       - SERVER_COUNTRIES=Hong Kong
-      - SERVER_CATEGORIES="Standard VPN servers","P2P"
+      - SERVER_CATEGORIES=Standard VPN servers,P2P
       - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/16
       # - FIREWALL_VPN_INPUT_PORTS=8080,7878,8989,9696,32400 # Explicit allowed ports on the internet
       - UPDATER_PERIOD=24h
