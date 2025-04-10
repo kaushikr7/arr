@@ -3,16 +3,11 @@ CFGPATH="fastdata/appdata/arr"
 DOCKER_COMPOSE_PATH="/mnt/fastdata/docker"
 
 # Ask the user if they want to launch the Docker containers
-read -p "Would you like to launch the Docker containers now? (yes/no): " LAUNCH_CONTAINERS
+read -p "Would you like to setup the arr-stack Docker containers now? (yes/no): " LAUNCH_CONTAINERS
 # Launch Docker containers
 if [[ "$LAUNCH_CONTAINERS" =~ ^[Yy]es$ ]]; then
 
-    # Change to the Docker Compose directory and launch the containers
-    cd "$DOCKER_COMPOSE_PATH"
-    echo "Launching Docker containers from $DOCKER_COMPOSE_PATH..."
-    docker compose up -d
-
-    if [ $? -eq 0 ]; then
+    if [[ "$LAUNCH_CONTAINERS" =~ ^[Yy]es$ ]]; then
         echo "Docker containers launched successfully!"
 
         # Modify qBittorrent.conf after the container is running
