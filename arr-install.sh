@@ -1,5 +1,5 @@
 # Define datasets and directories
-CFGPATH = fastdata/appdata/arr"
+CFGPATH="fastdata/appdata/arr"
 DOCKER_COMPOSE_PATH="/mnt/fastdata/docker"
 
 # Ask the user if they want to launch the Docker containers
