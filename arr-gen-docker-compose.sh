@@ -10,7 +10,7 @@ DOCKER_COMPOSE_PATH="/mnt/fastdata/docker"
 create_directory "$DOCKER_COMPOSE_PATH"
 
 # Ensure the Docker Compose file path exists
-DOCKER_COMPOSE_FILE="$DOCKER_COMPOSE_PATH/arr-docker-compose.yml"
+DOCKER_COMPOSE_FILE="$DOCKER_COMPOSE_PATH/docker-compose.yml"
 if [ ! -d "$DOCKER_COMPOSE_PATH" ]; then
     echo "⚠️ Docker Compose directory missing, creating: $DOCKER_COMPOSE_PATH"
     mkdir -p "$DOCKER_COMPOSE_PATH"
