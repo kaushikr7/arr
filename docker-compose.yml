@@ -1,7 +1,6 @@
 networks:
   media_network:
     driver: bridge
-
 services:
   gluetun:
     container_name: gluetun
@@ -12,26 +11,26 @@ services:
     networks:
       - media_network
     ports:
-      - 9696:9696       # Prowlarr
-      - 7878:7878       # Radarr
-      - 8989:8989       # Sonarr
-      - 5055:5055       # Jellyseerr
-      - 8191:8191       # Flaresolverr
-      - 6767:6767       # Bazarr
-      - 8265:8265       # Tdarr webUI
-      - 8266:8266       # Tdarr server
-      - 8096:8096       # Jellyfin
+      - 9696:9696 # Prowlarr
+      - 7878:7878 # Radarr
+      - 8989:8989 # Sonarr
+      - 5055:5055 # Jellyseerr
+      - 8191:8191 # Flaresolverr
+      - 6767:6767 # Bazarr
+      - 8265:8265 # Tdarr webUI
+      - 8266:8266 # Tdarr server
+      - 8096:8096 # Jellyfin
       - 32400:32400/tcp # Plex
-      - 8324:8324/tcp   # Plex Companion
+      - 8324:8324/tcp # Plex Companion
       - 32469:32469/tcp # Plex DLNA
-      - 1900:1900/udp   # Plex DLNA
+      - 1900:1900/udp # Plex DLNA
       - 32410:32410/udp # Plex GDM
       - 32412:32412/udp # Plex GDM
       - 32413:32413/udp # Plex GDM
       - 32414:32414/udp # Plex GDM
-      - 8080:8080/tcp   # qBittorrent
-      - 6881:6881/udp   # qBittorrent DHT
-      - 8888:8080       # Dozzle
+      - 8080:8080/tcp # qBittorrent
+      - 6881:6881/udp # qBittorrent DHT
+      - 8888:8081 # Dozzle
     environment:
       - PUID=568
       - PGID=568
@@ -40,7 +39,7 @@ services:
       - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=4Y2x8ZtblodezemvseylnJ2uGmqdZFx133zeF+QJPW0=
       - SERVER_COUNTRIES=Hong Kong
-      - SERVER_CATEGORIES="Standard VPN servers","P2P"
+      - SERVER_CATEGORIES=Standard VPN servers,P2P
       - FIREWALL_OUTBOUND_SUBNETS=192.168.0.0/16
       # - FIREWALL_VPN_INPUT_PORTS=8080,7878,8989,9696,32400 # Explicit allowed ports on the internet
       - UPDATER_PERIOD=24h
@@ -50,14 +49,13 @@ services:
       - /dev/net/tun:/dev/net/tun
     volumes:
       - /mnt/fastdata/appdata/arr/gluetun:/gluetun
-
   prowlarr:
     container_name: prowlarr
     image: linuxserver/prowlarr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -65,14 +63,13 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/prowlarr:/config
       - /mnt/media/store:/media
-
   radarr:
     container_name: radarr
     image: linuxserver/radarr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -80,14 +77,13 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/radarr:/config
       - /mnt/media/store:/media
-
   sonarr:
     container_name: sonarr
     image: linuxserver/sonarr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -95,28 +91,26 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/sonarr:/config
       - /mnt/media/store:/media
-
   jellyseerr:
     container_name: jellyseerr
     image: fallenbagel/jellyseerr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
       - TZ=Asia/Hong_Kong
     volumes:
       - /mnt/fastdata/appdata/arr/jellyseerr:/app/config
-
   flaresolverr:
     container_name: flaresolverr
     image: ghcr.io/flaresolverr/flaresolverr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -124,7 +118,6 @@ services:
       - LOG_LEVEL=info
       - LOG_HTML=false
       - CAPTCHA_SOLVER=none
-
   recyclarr:
     container_name: recyclarr
     image: ghcr.io/recyclarr/recyclarr:latest
@@ -132,19 +125,18 @@ services:
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       CRON_SCHEDULE: 0 0 * * *
     volumes:
       - /mnt/fastdata/appdata/arr/recyclarr:/config
-
   bazarr:
     container_name: bazarr
     image: linuxserver/bazarr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -152,14 +144,13 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/bazarr:/config
       - /mnt/media/store:/media
-
   tdarr:
     container_name: tdarr
     image: ghcr.io/haveagitgat/tdarr:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -186,17 +177,17 @@ services:
       resources:
         reservations:
           devices:
-          - driver: nvidia
-            count: all
-            capabilities: [gpu]
-
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
   jellyfin:
     container_name: jellyfin
     image: lscr.io/linuxserver/jellyfin:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -204,14 +195,13 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/jellyfin:/config
       - /mnt/media/store:/media
-
   plex:
     container_name: plex
     image: lscr.io/linuxserver/plex:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -221,14 +211,13 @@ services:
       - /mnt/media/store/tv:/tv
       - /mnt/media/store/movies:/movies
       - /mnt/media/store/music:/music
-
   qbittorrent:
     container_name: qbittorrent
     image: linuxserver/qbittorrent:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
     environment:
       - PUID=568
       - PGID=568
@@ -241,18 +230,18 @@ services:
     volumes:
       - /mnt/fastdata/appdata/arr/qbittorrent:/config
       - /mnt/media/store:/media
-
   dozzle:
     container_name: dozzle
     image: amir20/dozzle:latest
     depends_on:
       - gluetun
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: service:gluetun
+    environment:
+      - DOZZLE_ADDR=:8081  # Changed internal port to 8081
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /mnt/fastdata/appdata/arr/dozzle:/data
-
   watchtower:
     container_name: watchtower
     image: containrrr/watchtower:latest
